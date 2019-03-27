@@ -20,4 +20,3 @@ eureka:
     prefer-ip-address: true
   rabbitmq:
     host: 192.168.2.5
-    port: 5672
