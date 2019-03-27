@@ -12,11 +12,12 @@ spring:
     show-sql: true # 输出生成的sql语句
     generate-ddl: true  # 是否自动建表
     database: mysql  # 数据库类型
+  rabbitmq:
+    host: 192.168.2.5
 eureka:
   client:
     service-url:  # Eureka注册地址
       defaultZone: http://127.0.0.1:6868/eureka
   instance:
     prefer-ip-address: true
-  rabbitmq:
-    host: 192.168.2.5
+ 
