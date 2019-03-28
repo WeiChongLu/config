@@ -17,7 +17,7 @@ spring:
 eureka:
   client:
     service-url:  # Eureka注册地址
-      defaultZone: http://127.0.0.1:6868/eureka
+      defaultZone: http://192.168.2.5:6868/eureka
   instance:
     prefer-ip-address: true
  
