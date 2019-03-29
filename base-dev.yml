@@ -14,8 +14,6 @@ spring:
     database: mysql  # 数据库类型
   rabbitmq:
     host: 192.168.2.5
-  zipkin:
-    base-url: http://127.0.0.1:9999/
 eureka:
   client:
     service-url:  # Eureka注册地址
