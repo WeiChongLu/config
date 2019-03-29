@@ -15,7 +15,7 @@ spring:
   rabbitmq:
     host: 192.168.2.5
   zipkin:
-    base-url: http://localhost:9999/
+    base-url: http://127.0.0.1:9999/
 eureka:
   client:
     service-url:  # Eureka注册地址
