@@ -2,7 +2,7 @@ server:
   port: 9001
 spring:
   application:
-    name: demo-base    # 微服务名称，单个微服务时没有作用，在多个微服务之间调用的时候才会用
+    name: demo-base001    # 微服务名称，单个微服务时没有作用，在多个微服务之间调用的时候才会用
   datasource:
     url: jdbc:mysql://192.168.2.5:33306/tensquare_base?characterEncoding=UTF8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
