@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: 9101
 spring:
   application:
     name: demo-base    # 微服务名称，单个微服务时没有作用，在多个微服务之间调用的时候才会用
