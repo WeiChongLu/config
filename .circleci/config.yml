@@ -23,6 +23,7 @@ jobs:
           environment_type: development 
           environment: dev 
           job_type: deployment
+          scan_commit_body: true
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
