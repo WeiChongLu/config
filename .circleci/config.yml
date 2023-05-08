@@ -22,7 +22,7 @@ jobs:
       - jira/notify:
           environment_type: development 
           environment: dev 
-          job_type: deployment
+          job_type: build
           scan_commit_body: true
 
 # Orchestrate jobs using workflows
