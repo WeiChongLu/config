@@ -22,12 +22,12 @@ jobs:
       - jira/notify:
           environment_type: development 
           environment: dev 
-          job_type: build
-          scan_commit_body: true
+          job_type: deployment  
+          scan_commit_body: false
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  test-job:
     jobs:
       - test-job
