@@ -38,7 +38,7 @@ workflows:
   build-and-deploy-project:
     jobs:
       - buld-and-deploy: 
-          env: dev
+          env: development
           env_type: development
           filters:
             branches:
@@ -50,4 +50,13 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - release
+      - buld-and-deploy: 
+          env: production
+          env_type: production
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+               - /^prod-v[\d]{4}[-][\d]{2}[-][\d]{2}[a-z]?$/
