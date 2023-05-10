@@ -56,10 +56,6 @@ workflows:
             branches:
               only:
                 - master-pull-request
-      - buld-and-deploy: 
-          env: staging
-          env_type: staging
-          filters:
-            branches:
-              only:
-                - master
+      - test: 
+          requires:
+          - buld-and-deploy
