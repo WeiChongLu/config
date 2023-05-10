@@ -12,9 +12,9 @@ jobs:
       env:
         type: string
         default: dev
-      env_label:
+      env_type:
         type: string
-        default: DEV
+        default: development
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
     docker:
@@ -27,10 +27,10 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
       - jira/notify:
-          environment_type: << parameters.env >> 
-          environment: dev 
+          environment_type: << parameters.env_type >> 
+          environment: << parameters.env >>  
           job_type: deployment  
-          scan_commit_body: false
+          scan_commit_body: true
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
@@ -38,21 +38,17 @@ workflows:
   build-and-deploy-project:
     jobs:
       - buld-and-deploy: 
-          env: development
+          env: dev
+          env_type: development
           filters:
             branches:
               only:
                 - master
       - buld-and-deploy: 
           env: staging
+          env_type: staging
           filters:
             branches:
-              ignore: /.*/
-            tags:
               only:
                 - /^staging-v[\d]{4}[-][\d]{2}[-][\d]{2}[a-z]?$/
-  
-
-
-
 
