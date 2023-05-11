@@ -111,6 +111,9 @@ commands:
 
                     parse_jira_key_array () {
                       # must save as ISSUE_KEYS='["CC-4"]'
+                      git checkout master
+                      git branch
+                      git pull
                       TAG_COMMIT_ID=$(git rev-list -n 1 $(git tag --sort=-creatordate | grep 'staging-v' | awk 'NR==2{print $0}'))
                       BRANCHES=$(git log --merges --pretty=format:'%s' --first-parent $TAG_COMMIT_ID..master)
                       ISSUE_KEYS=$(echo $BRANCHES | grep -oE '[A-Z]{2,30}-[0-9]+')
