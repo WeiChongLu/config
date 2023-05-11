@@ -116,7 +116,8 @@ commands:
                       git pull
                       TAG_COMMIT_ID=$(git rev-list -n 1 $(git tag --sort=-creatordate | grep 'staging-v' | awk 'NR==2{print $0}'))
                       BRANCHES=$(git log --merges --pretty=format:'%s' --first-parent $TAG_COMMIT_ID..master)
-                      ISSUE_KEYS=$(echo $BRANCHES | grep -oE '[A-Z]{2,30}-[0-9]+')
+                      ISSUE_INFO=$(echo $BRANCHES | grep -oE '[A-Z]{2,30}-[0-9]+')
+                      ISSUE_KEYS=$(echo "$ISSUE_INFO" | jq -R -s 'split("\n") | map(select(. != ""))')
                       if [ -z "$ISSUE_KEYS" ]; then
                         # No issue keys found.
                         echo "No issue keys found. This build does not contain a match for a Jira Issue. Please add your issue ID to the commit message or within the branch name."
