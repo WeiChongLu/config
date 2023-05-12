@@ -130,16 +130,18 @@ commands:
                     parse_jira_key_array_tag () {
                       # must save as ISSUE_KEYS='["CC-4"]'
                       MAIN_BRANCHE=develop
-                      git checkout $$MAIN_BRANCHE
+                      git checkout $MAIN_BRANCHE
                       git branch
                       git pull
                       PREVIOUS_TAG=$(git tag --sort=-creatordate | grep '<<parameters.environment>>-v' | awk 'NR==1{print $0}')
+                      echo "Previous tag: $PREVIOUS_TAG"
                       if [ -z "$PREVIOUS_TAG" ]; then
                         BRANCHES=$(git log --merges --pretty=format:'%s' --first-parent $MAIN_BRANCHE)
                       else
                         PREVIOUS_TAG_COMMIT_ID=$(git rev-list -n 1 $PREVIOUS_TAG)
                         BRANCHES=$(git log --merges --pretty=format:'%s' --first-parent $PREVIOUS_TAG_COMMIT_ID..$MAIN_BRANCHE)
                       fi
+                      echo "Branches: $BRANCHES"
                       ISSUE_INFO=$(echo $BRANCHES | grep -oE '<<parameters.issue_regexp>>')
                       ISSUE_KEYS=$(echo "$ISSUE_INFO" | jq -R -s 'split("\n") | map(select(. != "")) | unique')
                       if [ -z "$ISSUE_KEYS" ]; then
