@@ -133,8 +133,8 @@ commands:
                       git branch
                       git pull
                       TAG_COMMIT_ID=$(git rev-list -n 1 $(git tag --sort=-creatordate | grep '<<parameters.environment>>-v' | awk 'NR==2{print $0}'))
-                      BRANCHES=$(git log --merges --pretty=format:'%s' --first-parent $TAG_COMMIT_ID..master)
-                      ISSUE_INFO=$(echo $BRANCHES | grep -oE <<parameters.issue_regexp>>)
+                      BRANCHES=$(git log --merges --pretty=format:'%s' --first-parent $TAG_COMMIT_ID..develop)
+                      ISSUE_INFO=$(echo $BRANCHES | grep -oE '<<parameters.issue_regexp>>')
                       ISSUE_KEYS=$(echo "$ISSUE_INFO" | jq -R -s 'split("\n") | map(select(. != ""))')
                       if [ -z "$ISSUE_KEYS" ]; then
                         # No issue keys found.
