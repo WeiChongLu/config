@@ -133,7 +133,7 @@ commands:
                       git checkout $MAIN_BRANCHE
                       git branch
                       git pull
-                      PREVIOUS_TAG=$(git tag --sort=-creatordate | grep '<<parameters.environment>>-v' | awk 'NR==1{print $0}')
+                      PREVIOUS_TAG=$(git tag --sort=-creatordate | grep '<<parameters.environment>>-v' | awk 'NR==2{print $0}')
                       echo "Previous tag: $PREVIOUS_TAG"
                       if [ -z "$PREVIOUS_TAG" ]; then
                         BRANCHES=$(git log --merges --pretty=format:'%s' --first-parent $MAIN_BRANCHE)
@@ -142,6 +142,11 @@ commands:
                         BRANCHES=$(git log --merges --pretty=format:'%s' --first-parent $PREVIOUS_TAG_COMMIT_ID..$MAIN_BRANCHE)
                       fi
                       echo "Branches: $BRANCHES"
+                      if [ -z "$BRANCHES" ]; then
+                        # No issue keys found.
+                        echo "No issue keys found. This build does not contain a match for a Jira Issue. Please add your issue ID to the commit message or within the branch name."
+                        exit 0
+                      fi
                       ISSUE_INFO=$(echo $BRANCHES | grep -oE '<<parameters.issue_regexp>>')
                       ISSUE_KEYS=$(echo "$ISSUE_INFO" | jq -R -s 'split("\n") | map(select(. != "")) | unique')
                       if [ -z "$ISSUE_KEYS" ]; then
