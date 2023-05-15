@@ -348,6 +348,8 @@ jobs:
     # See: https://circleci.com/docs/configuration-reference/#executor-job
     docker:
       - image: cimg/node:14.21
+        environment:
+          DATABASE_NAME: test_circleCI
       - image: cimg/mysql:5.7
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
