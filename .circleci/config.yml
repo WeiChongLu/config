@@ -376,7 +376,8 @@ jobs:
             mysql -h 127.0.0.1 -u root --execute="show databases"
       - run: 
           name: test redis
-          command: redis-cli ping
+          command: |
+            sudo apt-get install redis-tools ; while ! redis-cli ping 2>/dev/null ; do sleep 1 ; done
       - notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
