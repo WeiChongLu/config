@@ -349,7 +349,6 @@ jobs:
     docker:
       - image: cimg/node:14.21
       - image: cimg/mysql:5.7
-        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb-large-prefix=true --innodb-file-format=Barracuda
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           # MYSQL_ROOT_PASSWORD: password123
@@ -357,6 +356,7 @@ jobs:
       # - image: cimg/redis:6.2.6
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps
+    working_directory: ~/repo
     steps:
       - checkout
       - run:
@@ -364,19 +364,23 @@ jobs:
           command: "node --version"
       - run:
           name: Waiting for Mysql to be ready
-          command: |
-            for i in `seq 1 50`;
-            do
-              nc -z localhost 3306 && echo Success && exit 0
-              echo -n .
-              sleep 1
-            done
-            echo Failed waiting for Mysql && exit 1
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+          # command: |
+          #   for i in `seq 1 50`;
+          #   do
+          #     nc -z localhost 3306 && echo Success && exit 0
+          #     echo -n .
+          #     sleep 1
+          #   done
+          #   echo Failed waiting for Mysql && exit 1
+      - run: 
+          name: install mysql default client
+          command: sudo apt-get install default-mysql-client
       - run:
           name: run mysql
           # environment:
           #   MYSQL_DB_URL: "mysql://root:root@/test_circleCI?charset=utf8&parseTime=True&loc=Local"
-          command: mysql  -h 127.0.0.1 -u root  -e "create database rails_chat_tutorial;"
+          command: mysql  -h 127.0.0.1 -u root  -e "create database test_circleCI;"
       - notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
