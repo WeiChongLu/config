@@ -350,7 +350,7 @@ jobs:
       - image: cimg/node:14.21
       - image: cimg/mysql:5.7
         environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ALLOW_EMPTY_PASSWORD: password123
           MYSQL_DATABASE: test_circleCI
       # - image: cimg/redis:6.2.6
     # Add steps to the job
