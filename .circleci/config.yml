@@ -379,9 +379,8 @@ jobs:
           command: |
             sudo apt-get install redis-tools ; while ! redis-cli ping 2>/dev/null ; do sleep 1 ; done
       - run: 
-          name: check current folder
-          command: |
-            ls
+          name: npm install
+          command: npm install
       - notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
