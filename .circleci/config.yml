@@ -370,7 +370,9 @@ jobs:
             sudo apt-get update
             sudo apt-get install mysql-client
             mysql -h 127.0.0.1 -u root --execute="show databases"
-      - run: redis-cli ping
+      - run: 
+          name: test redis
+          command: redis-cli ping
       - notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
