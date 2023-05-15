@@ -351,9 +351,8 @@ jobs:
       - image: cimg/mysql:5.7
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          # MYSQL_ROOT_PASSWORD: password123
           MYSQL_DATABASE: test_circleCI
-      # - image: cimg/redis:6.2.6
+      - image: cimg/redis:6.2.6
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps
     working_directory: ~/repo
@@ -365,22 +364,13 @@ jobs:
       - run:
           name: Waiting for Mysql to be ready
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
-          # command: |
-          #   for i in `seq 1 50`;
-          #   do
-          #     nc -z localhost 3306 && echo Success && exit 0
-          #     echo -n .
-          #     sleep 1
-          #   done
-          #   echo Failed waiting for Mysql && exit 1
       - run:
           name: mysql database 
-          # environment:
-          #   MYSQL_DB_URL: "mysql://root:root@/test_circleCI?charset=utf8&parseTime=True&loc=Local"
           command: |
             sudo apt-get update
             sudo apt-get install mysql-client
             mysql -h 127.0.0.1 -u root --execute="show databases"
+      - run: redis-cli ping
       - notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
