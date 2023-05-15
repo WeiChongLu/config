@@ -1,6 +1,6 @@
 # define constant
 PREFIX_BRANCH="TP-"
-SLACK_PATH="https://hooks.slack.com/services/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"
+SLACK_PATH="https://hooks.slack.com/services/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"
 GITHUB_ORGANIZATION=WeiChongLu
 JIRA_ORGANIZATION=waylontest
 
