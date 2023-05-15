@@ -374,10 +374,11 @@ jobs:
           #   done
           #   echo Failed waiting for Mysql && exit 1
       - run:
-          name: run mysql
+          name: mysql database 
           # environment:
           #   MYSQL_DB_URL: "mysql://root:root@/test_circleCI?charset=utf8&parseTime=True&loc=Local"
           command: |
+            sudo apt-get update
             sudo apt-get install mysql-client
             mysql -h 127.0.0.1 -u root --execute="SELECT 1"
       - notify:
