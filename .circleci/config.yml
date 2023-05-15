@@ -353,7 +353,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: sh ./deployment/slack/start.sh
+          command: sh ./deployment/slack/start.sh ${SLACK_PATH}
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
@@ -363,7 +363,7 @@ jobs:
           job_type: deployment  
           scan_commit_body: true
       - run:
-          command: sh ./deployment/slack/end.sh
+          command: sh ./deployment/slack/end.sh  ${SLACK_PATH}
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows

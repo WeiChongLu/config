@@ -1,5 +1,5 @@
 # define constant
-SLACK_PATH="https://hooks.slack.com/services/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"
+SLACK_PATH=$1
 
 # find basic variables
 REPO_NAME=$(git config --get remote.origin.url |  sed 's#.*/\([^.]*\)\.git#\1#')
