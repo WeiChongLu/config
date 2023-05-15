@@ -33,13 +33,14 @@ DETAIL=$(echo "$BRANCHES" | while read LINE; do
   PR=$(echo $LINE | sed -n 's/[^#]*#\([0-9]*\).*/\1/p')
   BRANCH=$(echo $LINE | sed -n 's#.*/\([^/]*\)$#\1#p')
   BRANCH=$(echo "$BRANCH" | sed 's/#//g')
+  JIRA=$(echo $BRANCHES | grep -oE '[A-Z]{2,30}-[0-9]+')
   if [ "${#PR}" -eq 0 ]; then
     PR_STR=""
   else
     PR_LINK=$(echo "https://github.com/$GITHUB_ORGANIZATION/$REPO_NAME/pull/$PR")
     PR_STR=$(echo " [<$PR_LINK|#$PR>]")
-    if echo "$BRANCH" | grep -qi "$PREFIX_BRANCH"; then
-      BRANCH_STR="<https://$JIRA_ORGANIZATION.atlassian.net/browse/$BRANCH|$BRANCH>"
+    if [ -z "$JIRA" ]; then
+      BRANCH_STR="<https://$JIRA_ORGANIZATION.atlassian.net/browse/$JIRA|$BRANCH>"
     else
       BRANCH_STR=$BRANCH
     fi
