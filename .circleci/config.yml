@@ -363,7 +363,7 @@ jobs:
           job_type: deployment  
           scan_commit_body: true
       - run:
-          command: sh ./deployment/slack/end.sh  ${SLACK_PATH}
+          command: sh ./deployment/slack/end.sh ${SLACK_PATH}
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
