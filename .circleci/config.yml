@@ -347,7 +347,7 @@ jobs:
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
     docker:
-      - image: cimg/node:14.21
+      - image: cimg/node:20.0
         environment:
           DATABASE_NAME: test_circleCI
       - image: cimg/mysql:5.7
