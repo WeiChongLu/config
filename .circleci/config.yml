@@ -379,8 +379,8 @@ jobs:
           #   MYSQL_DB_URL: "mysql://root:root@/test_circleCI?charset=utf8&parseTime=True&loc=Local"
           command: |
             sudo apt-get update
-            sudo apt-get install mysql-client
-            mysql -h 127.0.0.1 -u root --execute="SELECT 1"
+            sudo apt-get install mysql-clien
+            mysql -h 127.0.0.1 -u root --execute="show databases"
       - notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
