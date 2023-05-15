@@ -373,14 +373,13 @@ jobs:
           #     sleep 1
           #   done
           #   echo Failed waiting for Mysql && exit 1
-      - run: 
-          name: install mysql default client
-          command: sudo apt-get install default-mysql-client
       - run:
           name: run mysql
           # environment:
           #   MYSQL_DB_URL: "mysql://root:root@/test_circleCI?charset=utf8&parseTime=True&loc=Local"
-          command: mysql  -h 127.0.0.1 -u root  -e "create database test_circleCI;"
+          command: |
+            sudo apt-get install mysql-client
+            mysql -h 127.0.0.1 -u root --execute="SELECT 1"
       - notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
