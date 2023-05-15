@@ -353,6 +353,8 @@ jobs:
     steps:
       - checkout
       - run:
+          command: sh ./deployment/slack/start.sh
+      - run:
           name: "Say hello"
           command: "echo Hello, World!"
       - notify:
@@ -360,6 +362,8 @@ jobs:
           environment: << parameters.env >>  
           job_type: deployment  
           scan_commit_body: true
+      - run:
+          command: sh ./deployment/slack/end.sh
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
