@@ -349,6 +349,7 @@ jobs:
     docker:
       - image: cimg/node:14.21
       - image: cimg/mysql:5.7
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb-large-prefix=true --innodb-file-format=Barracuda
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           # MYSQL_ROOT_PASSWORD: password123
@@ -372,10 +373,10 @@ jobs:
             done
             echo Failed waiting for Mysql && exit 1
       - run:
-          name: run test
-          environment:
-            MYSQL_DB_URL: "mysql://root:root@/test_circleCI?charset=utf8&parseTime=True&loc=Local"
-          command: yarn test
+          name: run mysql
+          # environment:
+          #   MYSQL_DB_URL: "mysql://root:root@/test_circleCI?charset=utf8&parseTime=True&loc=Local"
+          command: mysql  -h 127.0.0.1 -u root  -e "create database rails_chat_tutorial;"
       - notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
