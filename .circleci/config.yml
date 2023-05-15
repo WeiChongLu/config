@@ -387,6 +387,9 @@ jobs:
             npm install newman
             npm install newman-reporter-htmlextra
             npm run start
+      - run: 
+          name: run the test scrits
+          command: |
             newman run https://api.getpostman.com/collections/17190788-9f95c566-0547-4581-83e3-21e4447405ee?apikey=PMAK-6458701f59d31e5e85807828-57ac0283772df4fffd0a6a2e0fb857468a -e https://api.getpostman.com/environments/17190788-8c1bf839-2c5a-4308-8c1d-09278fd303e8?apikey=PMAK-6458701f59d31e5e85807828-57ac0283772df4fffd0a6a2e0fb857468a -n 1 -r "htmlextra,cli" --reporter-htmlextra-export htmlReport.html
       - notify:
           environment_type: << parameters.env_type >> 
