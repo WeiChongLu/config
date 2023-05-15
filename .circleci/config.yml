@@ -129,7 +129,7 @@ commands:
 
                     parse_jira_key_array_tag () {
                       # must save as ISSUE_KEYS='["CC-4"]'
-                      MAIN_BRANCHE=develop
+                      MAIN_BRANCHE=master
                       git checkout $MAIN_BRANCHE
                       git branch
                       git pull
@@ -372,7 +372,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - master
       - buld-and-deploy: 
           env: staging
           env_type: staging
