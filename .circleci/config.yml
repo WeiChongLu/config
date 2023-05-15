@@ -381,7 +381,7 @@ jobs:
       - run: 
           name: check current folder
           command: |
-            ll
+            ls
       - notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
