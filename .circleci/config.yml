@@ -381,15 +381,23 @@ jobs:
           command: |
             sudo apt-get install redis-tools ; while ! redis-cli ping 2>/dev/null ; do sleep 1 ; done
       - run: 
-          name: build and run project
+          name: build the project
           command: |
             npm install
             npm install newman
             npm install newman-reporter-htmlextra
-            npm install pm2
-            pm2 start --name nest dist/main.js
+      - save_cache:
+          key: dependency-cache-{{checksum "package.json"}}
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
       - run: 
-          name: run the test scrits
+          name: run the project
+          command: |
+            npm run start
+      - run: 
+          name: run the test scripts
           command: |
             newman run https://api.getpostman.com/collections/17190788-9f95c566-0547-4581-83e3-21e4447405ee?apikey=${POSTMAN_TOKEN} -e https://api.getpostman.com/environments/17190788-8c1bf839-2c5a-4308-8c1d-09278fd303e8?apikey=${POSTMAN_TOKEN} -n 1 -r "htmlextra,cli" --reporter-htmlextra-export htmlReport.html
       - notify:
