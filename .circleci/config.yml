@@ -384,8 +384,8 @@ jobs:
           name: build the project
           command: |
             npm install
-            npm install newman
-            npm install newman-reporter-htmlextra
+            npm install --prefix=$HOME/.local --global newman
+            npm install --prefix=$HOME/.local --global newman-reporter-htmlextra
             npm install --prefix=$HOME/.local --global pm2
       - save_cache:
           key: dependency-cache-{{checksum "package.json"}}
