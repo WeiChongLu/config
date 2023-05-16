@@ -383,6 +383,8 @@ jobs:
       - run: 
           name: build the project
           command: |
+            sudo chown -R `whoami` ~/.npm
+            sudo chown -R `whoami` /usr/local/lib/node_modules
             npm install
             npm install newman
             npm install newman-reporter-htmlextra
