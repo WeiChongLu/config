@@ -384,7 +384,6 @@ jobs:
           name: build the project
           command: |
             npm install
-            npm run build
             npm install --prefix=$HOME/.local --global newman
             npm install --prefix=$HOME/.local --global newman-reporter-htmlextra
             npm install --prefix=$HOME/.local --global pm2
@@ -398,6 +397,7 @@ jobs:
           name: run the project
           command: |
             ls
+            npm run build
             pm2 start ../dist/main.ts
       - run: 
           name: run the test scripts
