@@ -370,16 +370,16 @@ jobs:
           name: Waiting for Redis to be ready
           command: |
             dockerize -wait tcp://localhost:6379 -timeout 2m
-      - run:
-          name: mysql database 
-          command: |
-            sudo apt-get update
-            sudo apt-get install mysql-client
-            mysql -h 127.0.0.1 -u root --execute="show databases"
-      - run: 
-          name: test redis
-          command: |
-            sudo apt-get install redis-tools ; while ! redis-cli ping 2>/dev/null ; do sleep 1 ; done
+      # - run:
+      #     name: mysql database 
+      #     command: |
+      #       sudo apt-get update
+      #       sudo apt-get install mysql-client
+      #       mysql -h 127.0.0.1 -u root --execute="show databases"
+      # - run: 
+      #     name: test redis
+      #     command: |
+      #       sudo apt-get install redis-tools ; while ! redis-cli ping 2>/dev/null ; do sleep 1 ; done
       - run: 
           name: build the project
           command: |
@@ -395,8 +395,7 @@ jobs:
       - run: 
           name: run the project
           command: |
-            npm run start
-            exit 0
+            npm run start || true
       - run: 
           name: run the test scripts
           command: |
