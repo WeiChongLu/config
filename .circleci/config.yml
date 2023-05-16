@@ -386,6 +386,7 @@ jobs:
             npm install
             npm install newman
             npm install newman-reporter-htmlextra
+            npm install pm2 -g
       - save_cache:
           key: dependency-cache-{{checksum "package.json"}}
           paths:
@@ -395,7 +396,7 @@ jobs:
       - run: 
           name: run the project
           command: |
-            npm run start
+            pm2 start ~/dist/main.ts
       - run: 
           name: run the test scripts
           command: |
