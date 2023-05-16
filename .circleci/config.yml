@@ -396,8 +396,8 @@ jobs:
       - run: 
           name: run the project
           command: |
-            ls
             npm run build
+            ls
             pm2 start ../dist/main.ts
       - run: 
           name: run the test scripts
