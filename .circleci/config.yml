@@ -384,6 +384,7 @@ jobs:
           name: build the project
           command: |
             npm install
+            npm run build
             npm install --prefix=$HOME/.local --global newman
             npm install --prefix=$HOME/.local --global newman-reporter-htmlextra
             npm install --prefix=$HOME/.local --global pm2
