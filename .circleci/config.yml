@@ -386,7 +386,8 @@ jobs:
             npm install
             npm install newman
             npm install newman-reporter-htmlextra
-            npm run start
+            npm install pm2
+            pm2 start --name nest dist/main.js
       - run: 
           name: run the test scrits
           command: |
