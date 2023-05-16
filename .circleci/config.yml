@@ -349,6 +349,7 @@ jobs:
     docker:
       - image: cimg/node:20.0
         environment:
+          APP_PORT: 3000
           DATABASE_NAME: test_circleCI
       - image: cimg/mysql:5.7
         environment:
