@@ -383,11 +383,10 @@ jobs:
       - run: 
           name: build the project
           command: |
-            sudo chown -R `whoami` /usr/local/lib/node_modules
             npm install
             npm install newman
             npm install newman-reporter-htmlextra
-            npm i -g pm2
+            npm install --prefix=$HOME/.local --global pm2
       - save_cache:
           key: dependency-cache-{{checksum "package.json"}}
           paths:
