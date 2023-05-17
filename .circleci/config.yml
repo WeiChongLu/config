@@ -428,7 +428,7 @@ jobs:
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   end-2-end-testing:
-    # when: false
+    when: ${CIRCLE_PULL_REQUEST}
     jobs:
       - end-2-end-testing
   build-and-deploy-project:
