@@ -4,6 +4,11 @@ version: 2.1
 orbs:
   jq: circleci/jq@2.2
 
+parameters:
+  is_pr:
+    type: boolean
+    default: false
+
 # This code is licensed from CircleCI to the user under the MIT license.
 # See here for details: https://circleci.com/developer/orbs/licensing
 commands:
@@ -409,13 +414,6 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run: 
-          name: check PR
-          command: |
-            if [ "${CIRCLE_PULL_REQUEST##*/}" != "" ];then
-              echo "Is a pull request"
-              echo "${CIRCLE_PULL_REQUEST}"
-            fi
-      - run: 
           name: run the project
           command: |
             npm run build
@@ -428,7 +426,7 @@ jobs:
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   end-2-end-testing:
-    # when: ${CIRCLE_PULL_REQUEST}
+    when: << pipeline.parameters.is_pr >>
     jobs:
       - end-2-end-testing
   build-and-deploy-project:
