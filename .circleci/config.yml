@@ -413,6 +413,7 @@ jobs:
           command: |
             if [ "${CIRCLE_PULL_REQUEST##*/}" != "" ];then
               echo "Is a pull request"
+              echo "${CIRCLE_PULL_REQUEST}"
             fi
       - run: 
           name: run the project
