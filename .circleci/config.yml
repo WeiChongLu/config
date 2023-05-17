@@ -420,9 +420,14 @@ jobs:
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  build-and-deploy-project:
+  end-2-end-testing:
+    when:
+      and:
+        - ${CIRCLE_PULL_REQUEST}
     jobs:
       - end-2-end-testing
+  build-and-deploy-project:
+    jobs:
       - build-and-deploy: 
           env: dev
           env_type: development
