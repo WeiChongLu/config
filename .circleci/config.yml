@@ -404,6 +404,8 @@ jobs:
           command: |
             pm2 list
             ifconfig
+            netstat -anp
+            lsof -i :3000
             newman run https://api.getpostman.com/collections/17190788-9f95c566-0547-4581-83e3-21e4447405ee?apikey=${POSTMAN_TOKEN} -e https://api.getpostman.com/environments/17190788-8c1bf839-2c5a-4308-8c1d-09278fd303e8?apikey=${POSTMAN_TOKEN} -n 1 -r "htmlextra,cli" --reporter-htmlextra-export htmlReport.html
       - notify:
           environment_type: << parameters.env_type >> 
