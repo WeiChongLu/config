@@ -17,7 +17,7 @@ workflows:
               - run:
                   command: |
                     if [ "${CIRCLE_PULL_REQUEST##*/}" != "" ];then
-                      IS_PR=false
+                      IS_PR=true
                       echo "Is a pull request"
                     else
                       IS_PR=false
