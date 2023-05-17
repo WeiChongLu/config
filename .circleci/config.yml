@@ -347,19 +347,34 @@ jobs:
           environment: << parameters.env >>  
           job_type: deployment  
           scan_commit_body: true
+  test:
+    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/configuration-reference/#executor-job
+    docker:
+      - image: cimg/base:stable
+    # Add steps to the job
+    # See: https://circleci.com/docs/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: "Say hello I am tester"
+          command: "echo Hello, World! tester"
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   build-and-deploy-project:
     jobs:
+      - test
       - buld-and-deploy: 
           env: dev
           env_type: development
           filters:
             branches:
               only:
-                - develop
+                - master-pull-request
+          requires:
+            - test
       - buld-and-deploy: 
           env: staging
           env_type: staging
