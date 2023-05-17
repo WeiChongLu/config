@@ -409,6 +409,12 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run: 
+          name: check PR
+          command: |
+            if [ "${CIRCLE_PULL_REQUEST##*/}" != "" ];then
+              echo "Is a pull request"
+            fi
+      - run: 
           name: run the project
           command: |
             npm run build
@@ -448,6 +454,6 @@ workflows:
               only:
                - /^prod-v[\d]{4}[-][\d]{2}[-][\d]{2}[a-z]?$/
   end-2-end-testing:
-    when: false
+    # when: false
     jobs:
       - end-2-end-testing
