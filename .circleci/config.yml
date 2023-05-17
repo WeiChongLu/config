@@ -336,7 +336,31 @@ commands:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  buld-and-deploy:
+  build-and-deploy:
+    parameters:
+      env:
+        type: string
+        default: dev
+      env_type:
+        type: string
+        default: development
+    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/configuration-reference/#executor-job
+    docker:
+      - image: cimg/base:stable
+    # Add steps to the job
+    # See: https://circleci.com/docs/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World!"
+      - notify:
+          environment_type: << parameters.env_type >> 
+          environment: << parameters.env >>  
+          job_type: deployment  
+          scan_commit_body: true
+  end-2-end-testing:
     parameters:
       env:
         type: string
@@ -371,16 +395,6 @@ jobs:
           name: Waiting for Redis to be ready
           command: |
             dockerize -wait tcp://localhost:6379 -timeout 2m
-      # - run:
-      #     name: mysql database 
-      #     command: |
-      #       sudo apt-get update
-      #       sudo apt-get install mysql-client
-      #       mysql -h 127.0.0.1 -u root --execute="show databases"
-      # - run: 
-      #     name: test redis
-      #     command: |
-      #       sudo apt-get install redis-tools ; while ! redis-cli ping 2>/dev/null ; do sleep 1 ; done
       - run: 
           name: build the project
           command: |
@@ -403,17 +417,12 @@ jobs:
           name: run the postman script
           command: |
             newman run https://api.getpostman.com/collections/${POSTMAN_COLLECTION}?apikey=${POSTMAN_TOKEN} -e https://api.getpostman.com/environments/${POSTMAN_ENVIRONMENT}?apikey=${POSTMAN_TOKEN} -n 1 -r "htmlextra,cli" --reporter-htmlextra-export htmlReport.html
-      - notify:
-          environment_type: << parameters.env_type >> 
-          environment: << parameters.env >>  
-          job_type: deployment  
-          scan_commit_body: true
-
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   build-and-deploy-project:
     jobs:
+      - end-2-end-testing
       - buld-and-deploy: 
           env: dev
           env_type: development
@@ -421,7 +430,7 @@ workflows:
             branches:
               only:
                 - end2end-testing
-      - buld-and-deploy: 
+      - build-and-deploy: 
           env: staging
           env_type: staging
           filters:
@@ -430,7 +439,7 @@ workflows:
             tags:
               only:
                - /^staging-v[\d]{4}[-][\d]{2}[-][\d]{2}[a-z]?$/
-      - buld-and-deploy: 
+      - build-and-deploy: 
           env: prod
           env_type: production
           filters:
