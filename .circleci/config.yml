@@ -422,14 +422,13 @@ jobs:
 workflows:
   build-and-deploy-project:
     jobs:
-      - end-2-end-testing
       - build-and-deploy: 
           env: dev
           env_type: development
           filters:
             branches:
               only:
-                - end2end-testing
+                - end2end-tesing
       - build-and-deploy: 
           env: staging
           env_type: staging
