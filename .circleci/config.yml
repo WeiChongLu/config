@@ -428,7 +428,7 @@ workflows:
           filters:
             branches:
               only:
-                - end2end-tesing
+                - end2end-testing
       - build-and-deploy: 
           env: staging
           env_type: staging
