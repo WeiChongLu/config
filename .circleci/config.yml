@@ -4,11 +4,6 @@ version: 2.1
 orbs:
   jq: circleci/jq@2.2
 
-parameters:
-  is_pr:
-    type: boolean
-    default: false
-
 # This code is licensed from CircleCI to the user under the MIT license.
 # See here for details: https://circleci.com/developer/orbs/licensing
 commands:
@@ -425,12 +420,9 @@ jobs:
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  end-2-end-testing:
-    # when: << pipeline.parameters.is_pr >>
-    jobs:
-      - end-2-end-testing
   build-and-deploy-project:
     jobs:
+      - end-2-end-testing
       - build-and-deploy: 
           env: dev
           env_type: development
