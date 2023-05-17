@@ -413,6 +413,7 @@ jobs:
           command: |
             if [ "${CIRCLE_PULL_REQUEST##*/}" != "" ];then
               echo "Is a pull request"
+              echo "${CIRCLE_PULL_REQUEST}"
             fi
       - run: 
           name: run the project
@@ -426,6 +427,10 @@ jobs:
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
+  end-2-end-testing:
+    when: ${CIRCLE_PULL_REQUEST}
+    jobs:
+      - end-2-end-testing
   build-and-deploy-project:
     jobs:
       - build-and-deploy: 
@@ -453,7 +458,3 @@ workflows:
             tags:
               only:
                - /^prod-v[\d]{4}[-][\d]{2}[-][\d]{2}[a-z]?$/
-  end-2-end-testing:
-    # when: false
-    jobs:
-      - end-2-end-testing
