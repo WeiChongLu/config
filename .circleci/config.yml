@@ -420,7 +420,7 @@ workflows:
           filters:
             branches:
               only:
-                - TP-29-end-2-end-testing
+                - end2end-testing
       - buld-and-deploy: 
           env: staging
           env_type: staging
