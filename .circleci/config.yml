@@ -423,7 +423,7 @@ workflows:
   build-and-deploy-project:
     jobs:
       - end-2-end-testing
-      - buld-and-deploy: 
+      - build-and-deploy: 
           env: dev
           env_type: development
           filters:
