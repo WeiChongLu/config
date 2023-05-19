@@ -3,6 +3,7 @@
 version: 2.1
 orbs:
   jq: circleci/jq@2.2
+  jira-orb: weichonglu/jira-orb@0.0.1
 
 # This code is licensed from CircleCI to the user under the MIT license.
 # See here for details: https://circleci.com/developer/orbs/licensing
@@ -364,6 +365,7 @@ jobs:
           scan_commit_body: true
       - run:
           command: sh ./deployment/slack/end.sh ${SLACK_PATH}
+      - jira-orb/greet
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
@@ -377,6 +379,7 @@ workflows:
             branches:
               only:
                 - master
+                - TP-33-Circle-CI-Slack-Integration
       - buld-and-deploy: 
           env: staging
           env_type: staging
