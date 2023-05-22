@@ -24,14 +24,14 @@ jobs:
     steps:
       - checkout
       - jira-orb/slack_start:
-        github_organization: WeiChongLu
-        jira_organization: waylontest
+          github_organization: WeiChongLu
+          jira_organization: waylontest
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
       - jira-orb/slack_end:
-        github_organization: WeiChongLu
-        jira_organization: waylontest
+          github_organization: WeiChongLu
+          jira_organization: waylontest
       - jira-orb/jira_notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
