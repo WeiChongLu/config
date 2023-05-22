@@ -9,6 +9,8 @@ orbs:
 jobs:
   buld-and-deploy:
     parameters:
+      slack_path:
+        type: string
       env:
         type: string
         default: dev
@@ -24,9 +26,10 @@ jobs:
     steps:
       - checkout
       - jira-orb/slack_start:
+          slack_path: << parameters.slack_path >>
       - run:
           name: "Say hello"
-          command: "echo Hello, World!"
+          command: "echo Hello, World! << parameters.slack_path >>"
       - jira-orb/slack_end:
           slack_path: ${SLACK_PATH}
       - jira-orb/jira_notify:
@@ -40,7 +43,8 @@ jobs:
 workflows:
   build-and-deploy-project:
     jobs:
-      - buld-and-deploy: 
+      - buld-and-deploy:
+          slack_path: ${SLACK_PATH}
           env: dev
           env_type: development
           filters:
