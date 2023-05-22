@@ -8,17 +8,18 @@ orbs:
  # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-    PR-checking:
-      jobs:
-        - continuation/continue:
-            configuration_path: ".circleci/main_workflow.yml" 
-            parameters: /home/circleci/params.json
-            pre-steps:
-              - run:
-                  command: |
-                    if [ "${CIRCLE_PULL_REQUEST##*/}" != "" ];then
-                      IS_PR=true
-                      echo "Is a pull request"
-                    else
-                      IS_PR=false
-                    echo '{ "is_pr": '$IS_PR' }' >> /home/circleci/params.json
+  PR-checking:
+    jobs:
+      - continuation/continue:
+          configuration_path: ".circleci/main_workflow.yml" 
+          parameters: /home/circleci/params.json
+          pre-steps:
+            - run:
+                command: |
+                  if [ "${CIRCLE_PULL_REQUEST##*/}" != "" ];then
+                    IS_PR=true
+                    echo "Is a pull request"
+                  else
+                    IS_PR=false
+                  fi
+                  echo '{ "is_pr": '$IS_PR' }' >> /home/circleci/params.json
