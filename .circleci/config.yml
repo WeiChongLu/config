@@ -26,7 +26,7 @@ jobs:
     steps:
       - checkout
       - jira-orb/slack_start:
-          slack_path: << parameters.slack_path >>
+          slack_path: https://hooks.slack.com/services/xxxxx/xxxxx/xxxxx/from_config.yml
       - run:
           name: "Say hello"
           command: "echo Hello, World! << parameters.slack_path >>"
