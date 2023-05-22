@@ -3,6 +3,11 @@
 version: 2.1
 
 setup: true
+
+parameters:
+  environment:
+    default: prod
+    type: string
 orbs:
   continuation: circleci/continuation@0.3.1
  # Orchestrate jobs using workflows
@@ -23,3 +28,4 @@ workflows:
                     IS_PR=false
                   fi
                   echo '{ "is_pr": '$IS_PR' }' >> /home/circleci/params.json
+                  echo "1234 '<< pipeline.parameters.environment >>' '$IS_PR'"
