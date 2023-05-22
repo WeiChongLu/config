@@ -18,11 +18,12 @@ jobs:
     - name: Tickle CircleCI
       env:
         CIRCLE_BRANCH: ${{ github.head_ref }}
-        CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
+        CIRCLE_TOKEN: ${{ vars.CIRCLE_TOKEN }}
       run: |
+        echo "12345 ${CIRCLE_TOKEN}"
         curl -X POST \
         -H "Circle-Token: ${CIRCLE_TOKEN}" \
         -H 'Content-Type: application/json' \
         -H 'Accept: application/json' \
         -d "{\"branch\":\"${CIRCLE_BRANCH}\"}" \
-        https://circleci.com/api/v2/project/WeiChongLu/config/pipeline
+        https://circleci.com/api/v2/project/github/WeiChongLu/config/pipeline
