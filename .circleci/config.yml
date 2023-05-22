@@ -2,15 +2,13 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 orbs:
-  jira-orb: weichonglu/jira-orb@0.0.9
+  jira-orb: weichonglu/jira-orb@0.0.10
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
   buld-and-deploy:
     parameters:
-      slack_path:
-        type: string
       env:
         type: string
         default: dev
@@ -25,13 +23,11 @@ jobs:
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
-      - jira-orb/slack_start:
-          slack_path: https://hooks.slack.com/services/xxxxx/xxxxx/xxxxx/from_config.yml
+      - jira-orb/slack_start
       - run:
           name: "Say hello"
-          command: "echo Hello, World! << parameters.slack_path >>"
-      - jira-orb/slack_end:
-          slack_path: ${SLACK_PATH}
+          command: "echo Hello, World!"
+      - jira-orb/slack_end
       - jira-orb/jira_notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
@@ -44,7 +40,6 @@ workflows:
   build-and-deploy-project:
     jobs:
       - buld-and-deploy:
-          slack_path: ${SLACK_PATH}
           env: dev
           env_type: development
           filters:
@@ -53,7 +48,6 @@ workflows:
                 - master
                 - TP-33-Circle-CI-Slack-Integration
       - buld-and-deploy: 
-          slack_path: ${SLACK_PATH}
           env: staging
           env_type: staging
           filters:
@@ -63,7 +57,6 @@ workflows:
               only:
                - /^staging-v[\d]{4}[-][\d]{2}[-][\d]{2}[a-z]?$/
       - buld-and-deploy: 
-          slack_path: ${SLACK_PATH}
           env: prod
           env_type: production
           filters:
