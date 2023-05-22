@@ -24,7 +24,6 @@ jobs:
     steps:
       - checkout
       - jira-orb/slack_start:
-          slack_path: ${SLACK_PATH}
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
