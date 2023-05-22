@@ -2,7 +2,7 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 orbs:
-  jira-orb: weichonglu/jira-orb@0.0.13
+  jira-orb: weichonglu/jira-orb@0.0.14
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
@@ -23,11 +23,15 @@ jobs:
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
-      - jira-orb/slack_start
+      - jira-orb/slack_start:
+        github_organization: WeiChongLu
+        jira_organization: waylontest
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-      - jira-orb/slack_end
+      - jira-orb/slack_end:
+        github_organization: WeiChongLu
+        jira_organization: waylontest
       - jira-orb/jira_notify:
           environment_type: << parameters.env_type >> 
           environment: << parameters.env >>  
