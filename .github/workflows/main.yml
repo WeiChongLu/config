@@ -18,7 +18,7 @@ jobs:
     - name: Tickle CircleCI
       env:
         CIRCLE_BRANCH: ${{ github.head_ref }}
-        CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
+        CIRCLE_TOKEN: ${{ vars.CIRCLE_TOKEN }}
       run: |
         curl -X POST \
         -H "Circle-Token: ${CIRCLE_TOKEN}" \
