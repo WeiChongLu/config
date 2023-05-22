@@ -437,7 +437,7 @@ workflows:
           filters:
             branches:
               only:
-                - end2end-testing
+                - master-github-ation
       - build-and-deploy: 
           env: staging
           env_type: staging
