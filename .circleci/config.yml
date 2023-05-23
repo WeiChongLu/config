@@ -50,7 +50,6 @@ workflows:
             branches:
               only:
                 - master
-                - TP-33-Circle-CI-Slack-Integration
       - buld-and-deploy: 
           env: staging
           env_type: staging
