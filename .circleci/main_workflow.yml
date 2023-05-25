@@ -405,7 +405,8 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install mysql-client
-            mysql -h 127.0.0.1 -u root test_circleCI < sql-data/users.sql
+            ls
+            mysql -h 127.0.0.1 -u root test_circleCI < /sql-data/users.sql
             mysql -h 127.0.0.1 -u root --execute="SELECT * FROM test_circleCI.users"
       - run: 
           name: build the project
