@@ -39,5 +39,4 @@ export class UserEntity extends BaseEntity {
 	@Column({ length: 10, nullable: true })
 	locale: string;
 
-
 }
