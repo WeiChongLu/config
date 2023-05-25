@@ -21,7 +21,6 @@ jobs:
         CIRCLE_BRANCH: ${{ github.head_ref }}
         CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
       run: |
-        echo "12345 ${CIRCLE_TOKEN}"
         curl -X POST \
         -H "Circle-Token: ${CIRCLE_TOKEN}" \
         -H 'Content-Type: application/json' \

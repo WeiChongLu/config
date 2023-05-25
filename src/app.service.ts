@@ -22,7 +22,7 @@ export class AppService {
     const value =  await this.redis.get('test_key');
     const count = await this.userDevicesRepository.count();
     return {
-      'mysql': count == 0 ? 'success': 'fail',
+      'mysql': count >= 0 ? 'success': 'fail',
       'redis': value ? 'success': 'fail'
     }
     

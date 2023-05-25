@@ -400,6 +400,14 @@ jobs:
           name: Waiting for Redis to be ready
           command: |
             dockerize -wait tcp://localhost:6379 -timeout 2m
+      - run:
+          name: import data
+          command: |
+            sudo apt-get update
+            sudo apt-get install mysql-client
+            ls
+            mysql -h 127.0.0.1 -u root test_circleCI < sql-data/users.sql
+            mysql -h 127.0.0.1 -u root --execute="SELECT * FROM test_circleCI.users"
       - run: 
           name: build the project
           command: |
