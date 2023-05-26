@@ -22,4 +22,4 @@ eureka:
 feign:
   hystrix:
     enabled: true
-#TP-72
+#TP-70
