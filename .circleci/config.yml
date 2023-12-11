@@ -2,7 +2,7 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 orbs:
-  jira-orb: weichonglu/jira-orb@0.0.43
+  jira-orb: weichonglu/jira-orb@0.0.44
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
@@ -37,8 +37,6 @@ jobs:
           environment: << parameters.env >>  
           job_type: deployment  
           scan_commit_body: true
-          pipeline_id: "<< pipeline.id >>"
-          pipeline_number: "<< pipeline.number >>"
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
