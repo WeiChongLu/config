@@ -49,7 +49,7 @@ workflows:
           env: dev
           env_type: development
           filters:
-            branches:
+            tags:
               only:
                 - /^dev-v[\d]{4}[-][\d]{2}[-][\d]{2}[a-z]?$/
       - buld-and-deploy:
