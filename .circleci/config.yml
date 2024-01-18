@@ -50,8 +50,10 @@ workflows:
           env_type: development
           filters:
             branches:
+              ignore: /.*/
+            tags:
               only:
-                - master
+               - /^dev-v[\d]{4}[-][\d]{2}[-][\d]{2}[a-z]?$/
       - buld-and-deploy:
           context:
             - jira_orb_context
