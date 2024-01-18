@@ -2,7 +2,7 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 orbs:
-  jira-orb: weichonglu/jira-orb@0.0.56
+  jira-orb: weichonglu/jira-orb@0.0.57
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
@@ -49,6 +49,8 @@ workflows:
           env: dev
           env_type: development
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only:
                 - /^dev-v[\d]{4}[-][\d]{2}[-][\d]{2}[a-z]?$/
